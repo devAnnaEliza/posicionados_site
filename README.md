@@ -1,4 +1,4 @@
-# Posicionados - (site teste)
+# Posicionados
 
 Bem-vindo ao repositório do **Posicionados**, um site moderno, responsivo e pensado para conectar pessoas, divulgar eventos, compartilhar devocionais e fortalecer a comunidade!
 
@@ -74,3 +74,5 @@ Para visualizá-lo acesse: https://devannaeliza.github.io/posicionadosteste/
 ---
 
 Feito com 💛 por Posicionados e colaboradores.
+
+**Projeto em andamento**
