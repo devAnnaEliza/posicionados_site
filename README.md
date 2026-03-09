@@ -1,26 +1,34 @@
 # Posicionados
 
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)
+![Status](https://img.shields.io/badge/status-em%20andamento-yellow)
+
 Bem-vindo ao repositório do **Posicionados**, um site moderno, responsivo e pensado para conectar pessoas, divulgar eventos, compartilhar devocionais e fortalecer a comunidade!
+
+## 💻 Visualização
+
+Para visualizá-lo acesse: https://devannaeliza.github.io/posicionados_site/
 
 ## ✨ Sobre o Projeto
 
-O site **Posicionados** foi desenvolvido para ser o ponto de encontro digital do ministério, trazendo:
-- **Página inicial** com banner de destaque e navegação intuitiva
-- **Galeria de fotos** com visualização em grid e modal ampliado
-- **Cadastro de usuários** com opção de receber novidades pelo WhatsApp
-- **Login com popup** elegante e seguro
-- **Seções de eventos, loja, devocionais e sobre nós**
-- **Menu responsivo** com hambúrguer para dispositivos móveis
-- **Design alinhado à identidade visual do ministério**
-- **Direcionamento direto** para as redes sociais do ministério
+O site **Posicionados** foi desenvolvido com o objetivo de ser o ponto de encontro digital do ministério jovem, trazendo:
+
+- navegação simples e intuitiva
+- design responsivo
+- organização clara de conteúdo
+- experiência agradável para dispositivos móveis e desktop
 
 ## 🚀 Funcionalidades
 
-- **Cadastro e Login:** Formulários simples e claros, com validação e opção de receber atualizações.
-- **Galeria:** Grid de imagens, modal para ampliar, navegação próxima/anterior e botão de fechar.
-- **Eventos e Loja:** Cards organizados, visual limpo e responsivo.
-- **Menu Hambúrguer:** Navegação fácil em qualquer dispositivo.
-- **Acessibilidade:** Cores, fontes e espaçamentos pensados para todos.
+- Página inicial com banner de destaque
+- Galeria de fotos com grid e modal ampliado
+- Cadastro de usuários com opção de receber novidades pelo WhatsApp
+- Login com popup
+- Seções dedicadas para eventos, loja, devocionais e informações institucionais
+- Menu hambúrguer para navegação em dispositivos móveis
+- Links diretos para redes sociais
 
 ## 📱 Responsividade
 
@@ -28,10 +36,10 @@ O site foi projetado para funcionar perfeitamente em computadores, tablets e cel
 
 ## 🛠️ Tecnologias Utilizadas
 
-- **HTML5**
-- **CSS3** (Flexbox, Grid, Media Queries)
-- **JavaScript**
-- **Ionicons** para ícones
+- HTML5
+- CSS3 (Flexbox, Grid, Media Queries)
+- JavaScript
+- Ionicons para ícones
 
 ## 📂 Estrutura de Pastas
 
@@ -52,18 +60,6 @@ O site foi projetado para funcionar perfeitamente em computadores, tablets e cel
 │   └── prods/
 └── README.md
 ```
-
-## 💡 Como contribuir
-
-1. Faça um fork do projeto
-2. Crie uma branch para sua feature ou correção (`git checkout -b minha-feature`)
-3. Commit suas alterações (`git commit -m 'feat: minha nova feature'`)
-4. Push para a branch (`git push origin minha-feature`)
-5. Abra um Pull Request
-
-## 💻 Visualização
-
-Para visualizá-lo acesse: https://devannaeliza.github.io/posicionadosteste/ 
 
 ## 📢 Observações
 
