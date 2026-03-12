@@ -94,9 +94,12 @@
 
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
+    <div class="login-overlay" id="login-overlay"></div>
     <div id="login-popup" class="login-popup">
+        <button class="login-popup-fechar" id="login-popup-fechar" aria-label="Fechar">&#x2715;</button>
         <form class="login-form">
             <h3>Login</h3>
+            <p class="login-subtitulo">Entre na sua conta</p>
             <input type="email" placeholder="E-mail" required>
             <input type="password" placeholder="Senha" required>
             <button type="submit">Entrar</button>

@@ -7,6 +7,7 @@ if (document.querySelector('.swiper-container')) {
                 prevEl: '.swiper-button-prev-1',
             },
             loop: true,
+            createElements: false,
         });
     }
     //segundo carrossel
@@ -17,6 +18,7 @@ if (document.querySelector('.swiper-container')) {
                 prevEl: '.swiper-button-prev-2',
             },
             loop: true,
+            createElements: false,
         });
     }
 }
@@ -150,32 +152,12 @@ if (document.getElementById('calendario-dias')) {
     mostrarUltimosDevocionais(selecionado);
 }
 
-// caixinha suspensa quando clica em "login"
-document.addEventListener('DOMContentLoaded', function() {
-    const loginLink = document.getElementById('abrir-login');
-    const loginPopup = document.getElementById('login-popup');
-
-    if (loginLink && loginPopup) {
-        loginLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            loginPopup.style.display = 'block';
-        });
-
-        document.addEventListener('click', function(event) {
-            if (
-                loginPopup.style.display === 'block' &&
-                !loginPopup.contains(event.target) &&
-                event.target !== loginLink
-            ) {
-                loginPopup.style.display = 'none';
-            }
-        });
-    }
-});
-
+// painel lateral de login
 function abrirLoginPopup() {
     const loginPopup = document.getElementById('login-popup');
-    if (loginPopup) loginPopup.style.display = 'block';
+    const loginOverlay = document.getElementById('login-overlay');
+    if (loginPopup) loginPopup.classList.add('ativo');
+    if (loginOverlay) loginOverlay.classList.add('ativo');
 
     const menu = document.querySelector('.top-menu');
     if (menu && menu.classList.contains('menu-aberto')) {
@@ -183,20 +165,38 @@ function abrirLoginPopup() {
     }
 }
 
+function fecharLoginPopup() {
+    const loginPopup = document.getElementById('login-popup');
+    const loginOverlay = document.getElementById('login-overlay');
+    if (loginPopup) loginPopup.classList.remove('ativo');
+    if (loginOverlay) loginOverlay.classList.remove('ativo');
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     const abrirLogin = document.getElementById('abrir-login');
+    const fecharLogin = document.getElementById('login-popup-fechar');
+    const overlay = document.getElementById('login-overlay');
+
     if (abrirLogin) {
         abrirLogin.addEventListener('click', function(e) {
             e.preventDefault();
             abrirLoginPopup();
         });
     }
-});
+    if (fecharLogin) {
+        fecharLogin.addEventListener('click', fecharLoginPopup);
+    }
+    if (overlay) {
+        overlay.addEventListener('click', fecharLoginPopup);
+    }
 
-document.addEventListener('DOMContentLoaded', function() {
+    // fechar com ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') fecharLoginPopup();
+    });
+
     if (window.location.hash === "#login") {
-        const loginPopup = document.getElementById('login-popup');
-        if (loginPopup) loginPopup.style.display = 'block';
+        abrirLoginPopup();
     }
 });
 

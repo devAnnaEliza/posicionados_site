@@ -66,8 +66,8 @@
                         </div>
                     </div>
                     <!-- Botões de navegação exclusivos -->
-                    <div class="swiper-button-next swiper-button-next-1"></div>
-                    <div class="swiper-button-prev swiper-button-prev-1"></div>
+                    <div class="swiper-button-next-1"></div>
+                    <div class="swiper-button-prev-1"></div>
                 </div>
                 <h3>Orações de Sábado</h3>
             </div>
@@ -90,8 +90,8 @@
                         </div>
                     </div>
                     <!-- Botões de navegação exclusivos -->
-                    <div class="swiper-button-next swiper-button-next-2"></div>
-                    <div class="swiper-button-prev swiper-button-prev-2"></div>
+                    <div class="swiper-button-next-2"></div>
+                    <div class="swiper-button-prev-2"></div>
                 </div>
                 <h3>In Flow 1.0</h3>
             </div>
@@ -122,9 +122,12 @@
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script> <!--swiper pro carrosel-->
     <script src="script.js"></script>
 
+    <div class="login-overlay" id="login-overlay"></div>
     <div id="login-popup" class="login-popup">
+        <button class="login-popup-fechar" id="login-popup-fechar" aria-label="Fechar">&#x2715;</button>
         <form class="login-form">
             <h3>Login</h3>
+            <p class="login-subtitulo">Entre na sua conta</p>
             <input type="email" placeholder="E-mail" required>
             <input type="password" placeholder="Senha" required>
             <button type="submit">Entrar</button>
