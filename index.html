@@ -63,15 +63,53 @@
     <div class="login-overlay" id="login-overlay"></div>
     <div id="login-popup" class="login-popup">
         <button class="login-popup-fechar" id="login-popup-fechar" aria-label="Fechar">&#x2715;</button>
-        <form class="login-form">
+        <form class="login-form" id="form-login">
             <h3>Login</h3>
+            <div class="login-popup-divider"></div>
             <p class="login-subtitulo">Entre na sua conta</p>
-            <input type="email" placeholder="E-mail" required>
-            <input type="password" placeholder="Senha" required>
+            <input type="email" id="login-email" placeholder="E-mail" required>
+            <input type="password" id="login-senha" placeholder="Senha" required>
             <button type="submit">Entrar</button>
+            <p id="mensagem-login"></p>
             <p class="cadastre-link">Não tem cadastro? <a href="cadastro.html">Cadastre-se</a></p>
         </form>
     </div>
+
+    <script>
+    document.getElementById('form-login').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const mensagem = document.getElementById('mensagem-login');
+
+        const dados = {
+            email: document.getElementById('login-email').value,
+            senha: document.getElementById('login-senha').value
+        };
+
+        try {
+            const resposta = await fetch('http://localhost:3000/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dados)
+            });
+
+            const resultado = await resposta.json();
+
+            if (resposta.ok) {
+                localStorage.setItem('token', resultado.token);
+                mensagem.style.color = '#f3caa8';
+                mensagem.textContent = 'Login realizado com sucesso!';
+                document.getElementById('form-login').reset();
+            } else {
+                mensagem.style.color = '#ff6b6b';
+                mensagem.textContent = resultado.erro;
+            }
+        } catch (err) {
+            mensagem.style.color = '#ff6b6b';
+            mensagem.textContent = 'Erro ao conectar com o servidor.';
+        }
+    });
+</script>
 
 </body>
 </html>

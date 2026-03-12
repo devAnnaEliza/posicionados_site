@@ -54,21 +54,67 @@
     <main class="cadastro-main">
         <section class="cadastro-card">
             <h1>Cadastro</h1>
-            <form class="cadastro-form">
-                <input type="text" placeholder="Nome completo" required>
-                <input type="email" placeholder="E-mail" required>
-                <input type="tel" placeholder="WhatsApp (opcional)">
-                <input type="password" placeholder="Senha" required>
-                <input type="password" placeholder="Confirmar senha" required>
+            <form class="cadastro-form" id="form-cadastro">
+                <input type="text" id="nome" placeholder="Nome completo" required>
+                <input type="email" id="email" placeholder="E-mail" required>
+                <input type="tel" id="telefone" placeholder="WhatsApp (opcional)">
+                <input type="password" id="senha" placeholder="Senha" required>
+                <input type="password" id="confirmar-senha" placeholder="Confirmar senha" required>
                 <label class="cadastro-checkbox">
-                    <input type="checkbox" name="atualizacoes" value="sim">
+                    <input type="checkbox" id="receber-novidades" name="atualizacoes" value="sim">
                     Quero receber atualizações sobre devocionais e eventos pelo WhatsApp.
                 </label>
                 <button type="submit">Cadastrar</button>
+                <p id="mensagem-cadastro"></p>
                 <p class="login-link">Já tem conta? <a href="index.html#login" id="abrir-login-direto">Entrar</a></p>
             </form>
         </section>
     </main>
 
+    <script>
+        document.getElementById('form-cadastro').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const senha = document.getElementById('senha').value;
+            const confirmarSenha = document.getElementById('confirmar-senha').value;
+            const mensagem = document.getElementById('mensagem-cadastro');
+
+            if (senha !== confirmarSenha) {
+                mensagem.style.color = '#ff6b6b';
+                mensagem.textContent = 'As senhas não coincidem.';
+                return;
+            }
+
+            const dados = {
+                nome: document.getElementById('nome').value,
+                email: document.getElementById('email').value,
+                telefone: document.getElementById('telefone').value,
+                senha: senha,
+                receber_novidades: document.getElementById('receber-novidades').checked
+            };
+
+            try {
+                const resposta = await fetch('http://localhost:3000/auth/cadastrar', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(dados)
+                });
+
+                const resultado = await resposta.json();
+
+                if (resposta.ok) {
+                    mensagem.style.color = '#f3caa8';
+                    mensagem.textContent = 'Cadastro realizado com sucesso!';
+                    document.getElementById('form-cadastro').reset();
+                } else {
+                    mensagem.style.color = '#ff6b6b';
+                    mensagem.textContent = resultado.erro;
+                }
+            } catch (err) {
+                mensagem.style.color = '#ff6b6b';
+                mensagem.textContent = 'Erro ao conectar com o servidor.';
+            }
+        });
+    </script>
 </body>
 </html>
