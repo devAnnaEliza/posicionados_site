@@ -9,7 +9,7 @@ Bem-vindo ao repositório do **Posicionados**, um site moderno, responsivo e pen
 
 ## 💻 Visualização
 
-Para visualizá-lo acesse: https://devannaeliza.github.io/posicionados_site/
+Para visualizá-lo acesse: https://posicionados-site.vercel.app/
 
 ## ✨ Sobre o Projeto
 
