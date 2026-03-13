@@ -1,0 +1,23 @@
+{
+    "version": 2,
+    "builds": [
+        {
+            "src": "api/**/*.js",
+            "use": "@vercel/node"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/auth/cadastrar",
+            "dest": "/api/functions/cadastrar.js"
+        },
+        {
+            "src": "/auth/login",
+            "dest": "/api/functions/login.js"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "/$1"
+        }
+    ]
+}
