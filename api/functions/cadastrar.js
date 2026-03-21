@@ -16,9 +16,10 @@ module.exports = async (req, res) => {
         return res.status(400).json({ erro: 'Nome, e-mail e senha são obrigatórios.' });
     }
 
-    // Cria o usuário no Supabase Auth
     const { error: authError } = await supabase.auth.signUp({ email, password: senha });
 
+    console.log('authError:', authError);
+    
     if (authError) {
         if (authError.message.includes('already registered')) {
             return res.status(409).json({ erro: 'E-mail já cadastrado.' });
@@ -26,7 +27,6 @@ module.exports = async (req, res) => {
         return res.status(500).json({ erro: 'Erro ao cadastrar usuário.' });
     }
 
-    // Faz login imediatamente para criar sessão
     const { data: sessionData, error: sessionError } = await supabase.auth.signInWithPassword({
         email,
         password: senha
@@ -36,14 +36,12 @@ module.exports = async (req, res) => {
         return res.status(500).json({ erro: 'Erro ao iniciar sessão após cadastro.' });
     }
 
-    // Cria cliente autenticado com o token da sessão
     const supabaseAutenticado = createClient(
         process.env.SUPABASE_URL,
         process.env.SUPABASE_KEY,
         { global: { headers: { Authorization: `Bearer ${sessionData.session.access_token}` } } }
     );
 
-    // Salva os dados complementares
     const { error: dbError } = await supabaseAutenticado
         .from('usuarios')
         .insert([{
