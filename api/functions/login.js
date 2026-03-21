@@ -1,5 +1,3 @@
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 const { createClient } = require('@supabase/supabase-js');
 
 const supabase = createClient(
@@ -18,27 +16,17 @@ module.exports = async (req, res) => {
         return res.status(400).json({ erro: 'E-mail e senha são obrigatórios.' });
     }
 
-    const { data, error } = await supabase
-        .from('usuarios')
-        .select('*')
-        .eq('email', email)
-        .single();
+    const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password: senha
+    });
 
-    if (error || !data) {
+    if (error) {
         return res.status(401).json({ erro: 'E-mail ou senha inválidos.' });
     }
 
-    const senhaValida = await bcrypt.compare(senha, data.senha);
-
-    if (!senhaValida) {
-        return res.status(401).json({ erro: 'E-mail ou senha inválidos.' });
-    }
-
-    const token = jwt.sign(
-        { id: data.id, email: data.email },
-        process.env.JWT_SECRET,
-        { expiresIn: '7d' }
-    );
-
-    return res.status(200).json({ mensagem: 'Login realizado com sucesso!', token });
+    return res.status(200).json({
+        mensagem: 'Login realizado com sucesso!',
+        token: data.session.access_token
+    });
 };
