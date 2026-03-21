@@ -17,10 +17,7 @@ module.exports = async (req, res) => {
     }
 
     // Cria o usuário no Supabase Auth
-    const { data: authData, error: authError } = await supabase.auth.signUp({
-        email,
-        password: senha
-    });
+    const { error: authError } = await supabase.auth.signUp({ email, password: senha });
 
     if (authError) {
         if (authError.message.includes('already registered')) {
@@ -29,11 +26,28 @@ module.exports = async (req, res) => {
         return res.status(500).json({ erro: 'Erro ao cadastrar usuário.' });
     }
 
-    // Salva os dados complementares na tabela public.usuarios
-    const { error: dbError } = await supabase
+    // Faz login imediatamente para criar sessão
+    const { data: sessionData, error: sessionError } = await supabase.auth.signInWithPassword({
+        email,
+        password: senha
+    });
+
+    if (sessionError) {
+        return res.status(500).json({ erro: 'Erro ao iniciar sessão após cadastro.' });
+    }
+
+    // Cria cliente autenticado com o token da sessão
+    const supabaseAutenticado = createClient(
+        process.env.SUPABASE_URL,
+        process.env.SUPABASE_KEY,
+        { global: { headers: { Authorization: `Bearer ${sessionData.session.access_token}` } } }
+    );
+
+    // Salva os dados complementares
+    const { error: dbError } = await supabaseAutenticado
         .from('usuarios')
         .insert([{
-            id: authData.user.id,
+            id: sessionData.user.id,
             nome,
             telefone,
             receber_novidades
@@ -43,5 +57,8 @@ module.exports = async (req, res) => {
         return res.status(500).json({ erro: 'Erro ao salvar dados do usuário.' });
     }
 
-    return res.status(201).json({ mensagem: 'Usuário cadastrado com sucesso!' });
+    return res.status(201).json({
+        mensagem: 'Usuário cadastrado com sucesso!',
+        token: sessionData.session.access_token
+    });
 };
