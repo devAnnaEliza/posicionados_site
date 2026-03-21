@@ -1,0 +1,25 @@
+name: Supabase Heartbeat
+
+on:
+  schedule:
+    - cron: "0 12 */4 * *" # Roda a cada 4 dias ao meio-dia UTC
+  workflow_dispatch:        # Permite rodar manualmente pelo GitHub
+
+jobs:
+  heartbeat:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Ping Supabase
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+            "${{ secrets.SUPABASE_URL }}/rest/v1/?apikey=${{ secrets.SUPABASE_ANON_KEY }}")
+
+          echo "Status HTTP: $STATUS"
+
+          if [ "$STATUS" -ge 200 ] && [ "$STATUS" -lt 300 ]; then
+            echo "✅ Heartbeat bem-sucedido!"
+          else
+            echo "❌ Falha no heartbeat. Status: $STATUS"
+            exit 1
+          fi
