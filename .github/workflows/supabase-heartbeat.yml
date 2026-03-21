@@ -12,12 +12,16 @@ jobs:
     steps:
       - name: Ping Supabase
         run: |
-          STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+          RESPONSE=$(curl -s -w "\nSTATUS:%{http_code}" \
             -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
             -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}" \
             "${{ secrets.SUPABASE_URL }}/rest/v1/")
 
+          STATUS=$(echo "$RESPONSE" | grep "STATUS:" | cut -d: -f2)
+          BODY=$(echo "$RESPONSE" | grep -v "STATUS:")
+
           echo "Status HTTP: $STATUS"
+          echo "Resposta: $BODY"
 
           if [ "$STATUS" -ge 200 ] && [ "$STATUS" -lt 300 ]; then
             echo "✅ Heartbeat bem-sucedido!"
