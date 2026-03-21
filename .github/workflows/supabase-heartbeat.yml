@@ -15,7 +15,7 @@ jobs:
           RESPONSE=$(curl -s -w "\nSTATUS:%{http_code}" \
             -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
             -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}" \
-            "${{ secrets.SUPABASE_URL }}/rest/v1/")
+            "${{ secrets.SUPABASE_URL }}/auth/v1/health")
 
           STATUS=$(echo "$RESPONSE" | grep "STATUS:" | cut -d: -f2)
           BODY=$(echo "$RESPONSE" | grep -v "STATUS:")
