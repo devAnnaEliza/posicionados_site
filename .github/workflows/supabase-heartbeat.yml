@@ -21,7 +21,6 @@ jobs:
           BODY=$(echo "$RESPONSE" | grep -v "STATUS:")
 
           echo "Status HTTP: $STATUS"
-          echo "Resposta: $BODY"
 
           if [ "$STATUS" -ge 200 ] && [ "$STATUS" -lt 300 ]; then
             echo "✅ Heartbeat bem-sucedido!"
